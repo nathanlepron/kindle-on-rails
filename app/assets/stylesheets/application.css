@@ -17,17 +17,18 @@
     background-color:#9396b8
  }
  .bg-app{
-    background: rgb(53,48,163);
-    background: linear-gradient(0deg, rgba(53,48,163,1) 0%, rgba(23,39,98,1) 100%);
+    background: rgb(163,84,48);
+    background: linear-gradient(0deg, rgba(163,84,48,1) 0%, rgba(214,43,21,1) 100%);
 }
 .bg-app-second{
-  background-color : #232f3e
+    min-height:7vh;
+  background-color : #800800
 }
 .bold{
     font-weight:800
 }
 li input.form-control{
-    width:clamp(40vw,30vw,20vw) !important
+    width:clamp(20vw,15vw,10vw) !important
 }
 li{
     line-height:0.9rem;
@@ -146,4 +147,30 @@ li{
   overflow: hidden; 
   text-overflow: ellipsis; 
   max-width: 20ch; 
+}
+.special {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+  .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+    position: relative;
+    flex: 1 1 auto;
+    width: 25%;
+    min-width: 0;
+}
+.no-decoration{
+    text-decoration:none;
+    color:black
+}
+.no-decoration:hover{
+    color:#800800
+}
+
+.is_borrow{
+    background-color:#8009003a
 }

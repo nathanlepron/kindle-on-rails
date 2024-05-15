@@ -1,0 +1,6 @@
+<h1>Bienvenue sur Kindle-on-Rails</h1>
+<% if(!current_user) %>
+    <h6>Bénéficiez d'une expérience unique en vous connectant. <%= link_to "Connexion", new_session_path, class: "btn btn-light btn-sm" %></h6>
+<%end%>
+<hr>
+<h6>Les livres disponibles sur notre boutique à l'emprunt.</h6>

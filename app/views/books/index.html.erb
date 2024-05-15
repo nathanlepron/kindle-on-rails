@@ -1,14 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Books</h1>
-
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
+<h1>Tous nos livres</h1>
+<hr>
+<div id="books" class="row">
+<% @books.each do |book| %>
+<% is_borrow = Borrow.find_by(book_id:book.id,ended_at:nil)%>
+  <div class="col-6">
+    <%= link_to book, class:"no-decoration" do %>
+    <div class="card <%= (is_borrow) ? "is_borrow" : ""%>">
+    <% if(is_borrow) %>
+      <div class="card-header">
+        <span class="text-danger">Indisponible</span>
+      </div>
+      <%end%>
+      <div class="card-body">
+          <%= render book %>
+        </div>
+      </div>
+    <%end%>
+    </div>
+  <% end %>  
 </div>
-
-<%= link_to "New book", new_book_path %>

@@ -1,22 +1,20 @@
 <div id="<%= dom_id book %>">
-  <p>
-    <strong>Title:</strong>
-    <%= book.title %>
-  </p>
+<div class="row">
+  <div class="col-4 relative-pos">
+    <%= image_tag 'book.png', alt: 'Kindle-on-Rails, a book', class: 's-image' %>
+  </div>
+  <div class="col-8">
+    <div>
+      <h1><%= book.title %></h1>
+    </div>
+  <div>
+      <h5><i><%= book.author %> - <%= book.publish_year %></i></h5>
+    </div>
+<div>
+      <strong>Nombre d'emprunt:</strong>
+      <%= book.number_borrow %>
+    </div>
 
-  <p>
-    <strong>Author:</strong>
-    <%= book.author %>
-  </p>
-
-  <p>
-    <strong>Publish year:</strong>
-    <%= book.publish_year %>
-  </p>
-
-  <p>
-    <strong>Number borrow:</strong>
-    <%= book.number_borrow %>
-  </p>
-
+    </div>
+  </div>
 </div>
