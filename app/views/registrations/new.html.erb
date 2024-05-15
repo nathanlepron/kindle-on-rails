@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(url: registrations_path, method: "post", model: @user) do |form| %>
+        <div class="card">
+          <div class="card-header"><h3 class="text-center">Inscription</h3></div>
+          <div class="card-body">
+            <p class="card-text">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email</span>
+                <%= form.email_field :email, class: "form-control is-invalid", placeholder: "user@example.com" if @user.errors[:email].any? %>
+                <%= form.email_field :email, class: "form-control", placeholder: "user@example.com" unless @user.errors[:email].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:email].join(", ") if @user.errors[:email].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Nom</span>
+                <%= form.text_field :lastname, class: "form-control is-invalid", placeholder: "1 Rue de France" if @user.errors[:lastname].any? %>
+                <%= form.text_field :lastname, class: "form-control", placeholder: "1 Rue de France" unless @user.errors[:lastname].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:lastname].join(", ") if @user.errors[:lastname].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Prénom</span>
+                <%= form.text_field :firstname, class: "form-control is-invalid", placeholder: "01234" if @user.errors[:firstname].any? %>
+                <%= form.text_field :firstname, class: "form-control", placeholder: "01234" unless @user.errors[:firstname].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:firstname].join(", ") if @user.errors[:firstname].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Mot de passe</span>
+                <%= form.password_field :password, class: "form-control is-invalid", placeholder: "**********" if @user.errors[:password].any? %>
+                <%= form.password_field :password, class: "form-control", placeholder: "**********" unless @user.errors[:password].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:password].join(", ") if @user.errors[:password].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Confirmation</span>
+                <%= form.password_field :password_confirmation, class: "form-control is-invalid", placeholder: "**********" if @user.errors[:password_confirmation].any? %>
+                <%= form.password_field :password_confirmation, class: "form-control", placeholder: "**********" unless @user.errors[:password_confirmation].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:password_confirmation].join(", ") if @user.errors[:password_confirmation].any? %>
+              </div>
+            </p>
+            <p>
+              <div class="d-flex justify-content-center align-items-center">
+                <%= form.submit "Créer",class:"btn btn-success " %>
+              </div>
+            </p>
+            <div class="d-flex justify-content-center align-items-center">Vous possédez déjà un compte ? <%= link_to "Se connecter", new_session_path, class:"btn btn-light btn-sm" %></div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
