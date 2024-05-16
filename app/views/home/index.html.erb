@@ -12,6 +12,7 @@
 <% @current_borrows.each do |borrow| %>
         <% this_book = Book.find_by(id:borrow.book_id)%>
         <div class="col-6">
+            <%= link_to this_book, class:"no-decoration" do %>
             <div class="card book-widget">
                 <div class="card-header is_borrow">Emprunt en cours depuis le : <%= borrow.started_at.strftime("%d/%m/%Y")%></div>
                     <div class="card-body">
@@ -27,7 +28,7 @@
                     <%end%>
                 </div>
                 </div>
-                
+                <%end%>
             </div>
     <%end%>
     </div>
