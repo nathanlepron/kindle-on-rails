@@ -157,20 +157,36 @@ li{
 
 
 
-  .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
-    position: relative;
-    flex: 1 1 auto;
-    width: 25%;
-    min-width: 0;
+.input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 25%;
+  min-width: 0;
 }
 .no-decoration{
-    text-decoration:none;
-    color:black
+  text-decoration:none;
+  color:black
 }
 .no-decoration:hover{
-    color:#800800
+  color:#800800
 }
 
 .is_borrow{
-    background-color:#8009003a
+  background-color:#8009003a
+}
+
+.is_not_borrow{
+  background-color:#00ff0d3b
+}
+.is_fixed{
+  position: fixed;
+  top:61px
+}
+
+.book-widget {
+  height: 100%;
+  width: 100%;
+}
+.col-6{
+  margin:5px 0px
 }

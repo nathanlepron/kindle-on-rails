@@ -2,13 +2,6 @@
   <div class="row">
   <div class="col-sm-3"></div>
   <div class="col-sm-6">
-  
-
-<% if flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
 
 <%= form_with(url: sessions_path, method: "post") do |form| %>
 

@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
     def show
-        @user = User.find(params[:id])
+        @user = User.find_by(id: params[:id])
+    
+        if @user.present? 
+          if current_user && !(current_user.id == @user.id)
+            redirect_to root_path, alert: 'Vous ne possédez pas les autorisations pour visualiser ce profil.'
+          end
+        else
+          content_not_found
+        end
     end
     def edit
       @user = User.find(params[:id])

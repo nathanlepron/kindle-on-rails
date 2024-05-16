@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
     def not_found_method
       render template: 'shared/404', status: :not_found, layout: 'layouts/application'
     end
+    def content_not_found
+      render template: 'shared/204', status: 204, layout: 'layouts/application'
+    end
     private
   
     def current_user
@@ -12,6 +15,13 @@ class ApplicationController < ActionController::Base
     def logged_in?
       !!current_user
     end
+    
+    def get_best_borrows
+      Book.where.not(number_borrow:nil).order(number_borrow: :desc).limit(8)
+    end
+    def get_current_borrows
+      Borrow.where(user_id:current_user.id,ended_at:nil) if current_user
+    end
 
-    helper_method :current_user, :logged_in?
+    helper_method :current_user, :logged_in?, :get_best_borrows, :get_current_borrows
   end

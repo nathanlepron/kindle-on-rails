@@ -1,4 +1,5 @@
 <div id="<%= dom_id user %>">
+<p style="color: green"><%= notice %></p>
 <% current_borrows = Borrow.where(user_id:current_user.id,ended_at:nil) %>
 <% past_borrows = Borrow.where(user_id:current_user.id).where.not(ended_at: nil) %>
     <h1>Votre profil utilisateur</h1>
@@ -9,25 +10,42 @@
     <h6>Email : <%= user.email%></h6>
     <hr>
     <h4>Mes prêts en cours</h4>
+    <div class="row">
     <% current_borrows.each do |borrow| %>
         <% this_book = Book.find_by(id:borrow.book_id)%>
-        <%= render this_book %>
+        <div class="col-6">
+            <div class="card book-widget">
+                <div class="card-header is_borrow">Emprunt en cours depuis le : <%= borrow.started_at.strftime("%d/%m/%Y")%></div>
+                    <div class="card-body">
+                        <%= render this_book %>
+                    </div>
+                    <div class="card-footer">
+                    <% if(current_user.id == borrow.user_id)%>
+                    <%= form_with(url: close_borrow_borrow_path(this_book, return_to: request.path), method: :delete) do |form| %>
+                        <%= form.submit "Rendre ce livre", class:"btn btn-danger" %>
+                    <%end%>
+                    <%else%>
+                    Indisponible
+                    <%end%>
+                </div>
+                </div>
+                
+            </div>
     <%end%>
+    </div>
     <hr>
     <h4>Historique de mes prêts</h4>
     <div class="row">
     <% past_borrows.each do |borrow| %>
         <% this_book = Book.find_by(id:borrow.book_id)%>
         <div class="col-6">
-        <div class="card">
-            <div class="card-header">Emprunt réalisé le : <%= borrow.started_at.strftime("%d/%m/%Y")%></div>
-            <div class="card-body">
-                
-        <%= render this_book %>
-        </div>
-        </div>
-        </div>
-        </div>
+            <div class="card book-widget">
+                <div class="card-header is_not_borrow">Emprunt réalisé le : <%= borrow.started_at.strftime("%d/%m/%Y")%></div>
+                    <div class="card-body">
+                        <%= render this_book %>
+                    </div>
+                </div>
+            </div>
     <%end%>
 </div>
 </div>

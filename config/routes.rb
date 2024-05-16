@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   resources :registrations
   resources :sessions, only: [:new, :create]
   resources :users, only: [:show, :edit, :update]
-  resources :books do
-    patch :create_borrow, on: :member
-    patch :close_borrow, on: :member
+  resources :books, only: [:index, :new, :show, :update]
+  resources :borrows, only: [] do
+    member do
+      post :create_borrow
+      delete :close_borrow
+    end
   end
   delete 'logout' => 'sessions#destroy', as: :logout
   match '*unmatched', to: 'application#not_found_method', via: :all

@@ -1,6 +1,68 @@
+<p style="color: green"><%= notice %></p>
 <h1>Bienvenue sur Kindle-on-Rails</h1>
 <% if(!current_user) %>
     <h6>Bénéficiez d'une expérience unique en vous connectant. <%= link_to "Connexion", new_session_path, class: "btn btn-light btn-sm" %></h6>
 <%end%>
 <hr>
 <h6>Les livres disponibles sur notre boutique à l'emprunt.</h6>
+<hr>
+<%if(current_user && !@current_borrows.empty?)%>
+<h4>Les livres que vous empruntez actuellement</h4>
+<div class="row">
+<% @current_borrows.each do |borrow| %>
+        <% this_book = Book.find_by(id:borrow.book_id)%>
+        <div class="col-6">
+            <div class="card book-widget">
+                <div class="card-header is_borrow">Emprunt en cours depuis le : <%= borrow.started_at.strftime("%d/%m/%Y")%></div>
+                    <div class="card-body">
+                        <%= render this_book %>
+                    </div>
+                    <div class="card-footer">
+                    <% if(current_user.id == borrow.user_id)%>
+                    <%= form_with(url: close_borrow_borrow_path(this_book, return_to: request.path), method: :delete) do |form| %>
+                        <%= form.submit "Rendre ce livre", class:"btn btn-danger" %>
+                    <%end%>
+                    <%else%>
+                    Indisponible
+                    <%end%>
+                </div>
+                </div>
+                
+            </div>
+    <%end%>
+    </div>
+    <hr>
+    <%end%>
+
+
+<h4>Les livres du moment</h4>
+<div class="row">
+<% @best_borrows.each do |book| %>
+        <% this_borrow = Borrow.find_by(book_id:book.id, ended_at:nil)%>
+        <div class="col-6">
+            <%= link_to book, class:"no-decoration" do %>
+            <div class="card book-widget">
+                <%if(this_borrow)%>
+                <div class="card-header is_borrow">Emprunt en cours depuis le : <%= this_borrow.started_at.strftime("%d/%m/%Y")%></div>
+                <%end%>
+                    <div class="card-body">
+                        <%= render book %>
+                    </div>
+                    <%if(this_borrow)%>
+                    <div class="card-footer">
+                    <% if(current_user && current_user.id == this_borrow.user_id)%>
+                    <%= form_with(url: close_borrow_borrow_path(book, return_to: request.path), method: :delete) do |form| %>
+                        <%= form.submit "Rendre ce livre", class:"btn btn-danger" %>
+                    <%end%>
+                    <%else%>
+                    Indisponible
+                    <%end%>
+                    
+                </div>
+                <%end%>
+            </div>
+            <%end%>
+        </div>
+
+<%end%>
+</div>

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
-  before_action :require_login, only: %i[ create edit destroy update create_borrow ]
+  before_action :require_login, only: %i[ create edit destroy update ]
   # GET /books or /books.json
   def index
     if params[:search]
@@ -16,11 +16,12 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    redirect_to books_path, alert: 'Vous ne possédez pas les autorisations pour créer un livre.'
   end
 
   # GET /books/1/edit
   def edit
+    redirect_to books_path, alert: 'Vous ne possédez pas les autorisations pour éditer un livre.'
   end
 
   # POST /books or /books.json
@@ -38,43 +39,7 @@ class BooksController < ApplicationController
     end
   end
 
-  def create_borrow
-    if current_user
-      @book = Book.find(params[:id])
-        @borrow = Borrow.new(
-          user: current_user,
-          book_id: @book.id,
-          started_at: Time.current
-        )
-    
-        if @borrow.save
-          # Mettre à jour le stock du produit
-          @book.increment!(:number_borrow)
-    
-          redirect_to books_path, notice: "Emprunt réalisé avec succès."
-        else
-          Rails.logger.debug("Emprunts errors: #{@borrow.errors.inspect}")
-          redirect_to books_path, alert: "Erreur lors de l'emprunt."
-        end
-    else
-      redirect_to new_session_path
-    end
-  end
-  def close_borrow
-    if current_user
-      @book = Book.find(params[:id])
-      @borrow = Borrow.find_by(book_id:@book.id)
-      @borrow.ended_at = Time.current
-        if @borrow.save
-          redirect_to books_path, notice: "Livre rendu avec succès."
-        else
-          Rails.logger.debug("Emprunts errors: #{@borrow.errors.inspect}")
-          redirect_to books_path, alert: "Erreur lors du retour de ce livre."
-        end
-    else
-      redirect_to new_session_path
-    end
-  end
+  
   # PATCH/PUT /books/1 or /books/1.json
   def update
     respond_to do |format|
@@ -101,7 +66,13 @@ class BooksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params[:id])
+      @book = Book.find_by(id: params[:id])
+    
+      if @book.present?
+        # do your stuff
+      else
+        content_not_found
+      end
     end
 
     # Only allow a list of trusted parameters through.
@@ -110,7 +81,7 @@ class BooksController < ApplicationController
     end
     def require_login
       unless logged_in?
-        redirect_to new_session_path, alert: "Vous devez être connecté pour emprunter un livre."
+        redirect_to new_session_path, alert: "Vous devez être connecté pour effectuer une action sur un livre."
       end
     end
 end

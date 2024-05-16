@@ -21,18 +21,17 @@
       <div class="card">
         <div class="card-body">
             <% if(is_borrow) %>
-            <% Rails.logger.debug(is_borrow)%>
               <h6 class="text-danger">Ce livre est en cours d'emprunt depuis le <%= is_borrow.started_at.strftime("%d/%m/%Y") %>.</h6>
               <p class="text-danger">Vous devez attendre le retour de ce livre pour pouvoir l'emprunter.</p>
-              <% if(current_user.id == is_borrow.user_id)%>
-              <%= form_with(url: close_borrow_book_path(@book), method: :patch) do |form| %>
+              <% if(current_user && current_user.id == is_borrow.user_id)%>
+              <%= form_with(url: close_borrow_borrow_path(@book, return_to: request.path), method: :delete) do |form| %>
                 <%= form.submit "Fermer et rendre ce livre", class:"btn btn-danger" %>
               <%end%>
               <%end%>
             <%else%>
               <h6 class="text-success">Ce livre est disponible.</h6>
               <p class="text-success">Empruntez-le maintenant!</p>
-              <%= form_with(url: create_borrow_book_path(@book), method: :patch) do |form| %>
+              <%= form_with(url: create_borrow_borrow_path(@book), method: :post) do |form| %>
                 <%= form.submit "Emprunter ce chef d'oeuvre", class:"btn btn-success" %>
               <%end%>
             <%end%>

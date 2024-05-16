@@ -3,16 +3,6 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
 
-      <% if @user.errors.any? %>
-        <div class="alert alert-danger">
-          <ul>
-            <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
       <%= form_with(url: registrations_path, method: "post", model: @user) do |form| %>
         <div class="card">
           <div class="card-header"><h3 class="text-center">Inscription</h3></div>
@@ -28,16 +18,16 @@
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Nom</span>
-                <%= form.text_field :lastname, class: "form-control is-invalid", placeholder: "1 Rue de France" if @user.errors[:lastname].any? %>
-                <%= form.text_field :lastname, class: "form-control", placeholder: "1 Rue de France" unless @user.errors[:lastname].any? %>
+                <%= form.text_field :lastname, class: "form-control is-invalid", placeholder: "Doe" if @user.errors[:lastname].any? %>
+                <%= form.text_field :lastname, class: "form-control", placeholder: "Doe" unless @user.errors[:lastname].any? %>
               </div>
               <div class="invalid-feedback">
                 <%= @user.errors[:lastname].join(", ") if @user.errors[:lastname].any? %>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Prénom</span>
-                <%= form.text_field :firstname, class: "form-control is-invalid", placeholder: "01234" if @user.errors[:firstname].any? %>
-                <%= form.text_field :firstname, class: "form-control", placeholder: "01234" unless @user.errors[:firstname].any? %>
+                <%= form.text_field :firstname, class: "form-control is-invalid", placeholder: "John" if @user.errors[:firstname].any? %>
+                <%= form.text_field :firstname, class: "form-control", placeholder: "John" unless @user.errors[:firstname].any? %>
               </div>
               <div class="invalid-feedback">
                 <%= @user.errors[:firstname].join(", ") if @user.errors[:firstname].any? %>
