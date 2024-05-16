@@ -1,16 +1,94 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>KindleOnRails</title>
+    <title>Kindle-On-Rails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-expand-lg bg-app" tabindex="-1">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white m-plus" href="/">
+          <%= image_tag 'logo.png', alt: 'Amazon-on-Rails', width: '100', height: '35', class: 'd-inline-block align-text-top' %>
+        </a>
+        <div class="collapse navbar-collapse ">
+          <ul class="navbar-nav">
+            <li class="nav-item text-white ">
+              <i class="bi bi-person-circle"></i>
+              <% if logged_in? %>
+                <%= link_to user_path(current_user.id), class: "nav-link  active text-white" do %>
+                  Mon profil<br/><span class="bold"><%=current_user.lastname%>, <%=current_user.firstname%></span>
+                <%end%>
+              <% else %>
+                <%= link_to new_session_path, class: " nav-link  active text-white" do %>
+                  Mon profil
+                <%end%>
+              <%end%>
+            </li>
+            
+            <li class="nav-item text-white">
+              <%= link_to books_path, class:"nav nav-link active text-white" do%>
+              <span><i class=" bi bi-book"></i> Les meilleurs livres</span>
+              <%end%>
+            </li>
+            
+            
+            <li class="nav-item text-white">
+              <%= link_to new_book_path, class:"nav nav-link active text-white" do%>
+              <span><i class=" bi bi-book"></i> Ajouter un livre</span>
+              <%end%>
+            </li>
+            
+          </ul>
+          <div class="position-absolute end-0 translate-middle-connect" role="search">
+            <% if logged_in? %>
+              <%= button_to "Déconnexion", logout_path, method: :delete, class: "btn btn-outline-light" %>
+            <% else %>
+              <%= link_to "Connexion", new_session_path, class: "btn btn-light btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg bg-app-second sticky-top" tabindex="-1">
+      <div class="container-fluid ">
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item special">
+              <%= form_tag(books_path, method: "get", class: "d-flex", role: "search", "aria-label" => "Search Bar") do %>
+                <div class="input-group">
+                  <%= select_tag :filter, options_for_select([['Nom du livre', 'title'], ['Identifiant', 'id'],['Nom de l\'auteur', 'author'], ['Année de sortie', 'publish_year']]), class: 'btn btn-secondary dropdown-toggle form-select', data: { bs_toggle: 'dropdown' } %>
+                  <%= text_field_tag :search, nil, class: "form-control", placeholder: "Rechercher un livre", "aria-label" => "Search", "aria-describedby" => "button-addon2" %>
+                  <button class="btn btn-danger" type="submit"><i class="text-white bi bi-search"></i></button>
+                </div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="card white">
+        <div class="card-body">
+          <% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
+  <footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </footer>
 </html>

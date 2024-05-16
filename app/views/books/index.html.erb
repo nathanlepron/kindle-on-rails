@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tous nos livres</h1>
+<hr>
+<div id="books" class="row">
+<% @books.each do |book| %>
+<% is_borrow = Borrow.find_by(book_id:book.id,ended_at:nil)%>
+  <div class="col-6">
+    <%= link_to book, class:"no-decoration" do %>
+    <div class="card <%= (is_borrow) ? "is_borrow" : ""%> book-widget">
+      <div class="card-body">
+          <%= render book %>
+        </div>
+        
+        <% if(is_borrow) %>
+      <div class="card-footer">
+        <span class="text-danger">
+              <% if(current_user && current_user.id == is_borrow.user_id)%>
+                <%= form_with(url: close_borrow_borrow_path(book, return_to: request.path), method: :delete) do |form| %>
+                  <%= form.submit "Rendre ce livre", class:"btn btn-danger on-top" %>
+                <%end%>
+              <%else%>
+              Indisponible
+              <%end%>
+        </span>
+      </div>
+      <%end%>
+      </div>
+    <%end%>
+    </div>
+  <% end %>  
+</div>
