@@ -1,0 +1,192 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ body{
+    background-color:#9396b8
+ }
+ .bg-app{
+    background: rgb(163,84,48);
+    background: linear-gradient(0deg, rgba(163,84,48,1) 0%, rgba(214,43,21,1) 100%);
+}
+.bg-app-second{
+    min-height:7vh;
+  background-color : #800800
+}
+.bold{
+    font-weight:800
+}
+li input.form-control{
+    width:clamp(20vw,15vw,10vw) !important
+}
+li{
+    line-height:0.9rem;
+        display: flex;
+        align-items: center;
+}
+.address-size {
+    max-width: clamp(20vw, 15vw, 10vw);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+.card{
+    margin: 5px 0px;
+}
+.m-plus{
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+.navbar{
+    z-index:10000;
+}
+.offcanvas-header{
+    margin-top:14%
+}
+.offcanvas{
+    --bs-offcanvas-width: 300px;
+}
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1140px;
+    }
+}
+[class^="bi-"]::before, [class*=" bi-"]::before {
+    line-height: 1.2;
+}
+.translate-middle {
+    transform: translate(-15%, -12%) !important;
+}
+.translate-middle-connect {
+    transform: translate(-10%, 0%) !important;
+}
+.simple-link{
+    text-decoration: none;
+    color:black
+}
+.simple-link:hover{
+    color:#f9bb00
+}
+
+.a-price-whole {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .a-price-decimal {
+    top: -.75em;
+    font-size: 13px;
+  }
+  
+  .a-price-fraction {
+    top: -.75em;
+    font-size: 13px;
+  }
+  
+  .a-price-symbol {
+    top: -.75em;
+    font-size: 13px;
+  }
+
+  .full-width .btn{
+    width:100%;
+    margin: 3px 0px
+  }
+  .transaction p{
+    margin: 0;
+  }
+  .transaction .btn.btn-link{
+    padding: 0;
+  }
+
+  .latest-products{
+    max-height:50vh;
+  }
+  .carousel-item {
+    object-fit: cover;
+    max-height:50vh;
+  }
+  .carousel-control-prev-icon{
+    color: black
+  }
+  .carousel-control-next-icon{
+    color: rgb(224, 212, 212)
+  }
+
+  .s-image {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+    padding:10px 20px;
+
+}
+.relative-pos{
+  position:relative;
+}
+.reduce-text{
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 20ch; 
+}
+.special {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+.input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 25%;
+  min-width: 0;
+}
+.no-decoration{
+  text-decoration:none;
+  color:black
+}
+.no-decoration:hover{
+  color:#800800
+}
+
+.is_borrow{
+  background-color:#8009003a
+}
+
+.is_not_borrow{
+  background-color:#00ff0d3b
+}
+.is_fixed{
+  position: fixed;
+  top:61px
+}
+
+.book-widget {
+  height: 100%;
+  width: 100%;
+}
+.col-6{
+  margin:5px 0px
+}

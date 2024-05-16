@@ -1,0 +1,7 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render partial: 'book_show', locals: { product: @book } %>
+
+<div>
+  <%= link_to "Back to books", books_path, class:"btn btn-danger" %>
+</div>
